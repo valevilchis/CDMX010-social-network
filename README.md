@@ -165,14 +165,13 @@ una de tus Historias de Usuario debe tener:
   incluir estos aspectos en su Definición de Terminado (más todo lo que
   necesiten agregar):
 
+ 
   - Debe ser una SPA.
-  - Debe ser _responsive_.
   - Deben haber recibido _code review_ de al menos una compañera de otro equipo.
   - Hicieron los _test_ unitarios
   - Testearon manualmente buscando errores e imperfecciones simples.
   - Hicieron _pruebas_ de usabilidad e incorporaron el _feedback_ de los
     usuarios como mejoras.
-  - Desplegaron su aplicación y etiquetaron la versión (git tag).
 
 ### 5.4 Diseño de la Interfaz de Usuario (prototipo de baja fidelidad)
 
@@ -207,7 +206,7 @@ tus H.U.:
   - Al enviarse el formulario de registro o inicio de sesión, debe validarse.
   - Si hay errores, se deben mostrar mensajes descriptivos para ayudar al
   usuario a corregirlos.
-
+  
 #### Muro/timeline
 
 * Validaciones:
@@ -233,16 +232,8 @@ tus H.U.:
  [Single Page Application (SPA)](https://es.wikipedia.org/wiki/Single-page_application)
 * Alterar y persistir datos. Los datos que agregues o modifiques deberán
   persistir a lo largo de la aplicación. Te recomendamos que uses
-  [Firebase](https://firebase.google.com/) para eso también.
+  [Firebase](https://firebase.google.com/) para eso también.  
 
-#### Pruebas unitarias (unit tests)
-
-* Recuerda que no hay un _setup_ de **tests** definido, dependerá de
-  la estructura de tu proyecto. Algo que no debes de olvidar es pensar en éstas
-  pruebas, te pueden ayudar a definir la estructura y nomenclatura de tu lógica.
-
-* Los tests unitarios deben cubrir un mínimo del 70% de _statements_, _functions_,
-  _lines_, y _branches_.
 
 ### 5.8 Consideraciones técnicas UX
 
@@ -250,7 +241,6 @@ tus H.U.:
 * Hacer un  prototipo de baja fidelidad.
 * Asegurarte de que la implementación en código siga los lineamientos del
   diseño.
-* Hacer sesiones de _testing de usabilidad_ con el producto en HTML.
 
 ## 6. Hacker edition
 
