@@ -206,10 +206,7 @@ tus H.U.:
   - Al enviarse el formulario de registro o inicio de sesión, debe validarse.
   - Si hay errores, se deben mostrar mensajes descriptivos para ayudar al
   usuario a corregirlos.
-#### Responsive
   
-  * Se debe adaptar a Telefonos/Computadoras
-
 #### Muro/timeline
 
 * Validaciones:
