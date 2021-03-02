@@ -1,5 +1,5 @@
 export const parseURL = () => {
-    const path = location.hash.slice(1).toLowerCase() || '/';
+    const path = location.hash.slice(2).toLowerCase() || '/';
     const params = path.split('/');
 
     const request = {
