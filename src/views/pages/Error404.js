@@ -1,9 +1,16 @@
 const Error404 = {
     render: async () => {
       return `
-        <section>
-          <h1 class="text-center">Error 404. Pagina no encontrada.</h1>
-        </section>
+      <div class="wrapper">
+        <div class="container">
+            <div class="section-error">
+                <section>
+                    <h1 class="error text-center">404</h1>
+                    <span class="info">File not found</span>
+                </section>
+            </div>
+        </div>
+    </div>
       `;
     },
     after_render: async () => {}

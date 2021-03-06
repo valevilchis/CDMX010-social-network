@@ -1,7 +1,6 @@
 const navBar = {
     render: async () => {
-        const links = ['Inicio', 'Login', 'Registro'];
-
+        const links = ['Login', 'Registro','Informacion', 'Prueba'];
         const navLinks = links
         .map(
             link => `
@@ -10,9 +9,10 @@ const navBar = {
         )
         .join('\n');
         return `
-            <nav class="navbar navbar-expand-md navbar-light bg-white">
+            <nav class="navbar navbar-expand-md navbar-light ">
                 <a class="navbar-brand" href="/#">
-                    <img src="../../assets/img/quet.png" width="80" height="80" alt="Quetzalcoatl">
+                    <img src="../../assets/img/logo.png" width="60" height="60" alt="Simbolo">
+                    Yits´atil
                 </a>
                 <ul class="navbar-nav">
                     ${navLinks}
