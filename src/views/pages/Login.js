@@ -1,3 +1,5 @@
+// import {authGoogle,authFacebook} from '../../lib/authSociales.js';
+
 const Login = {
     render: async () => {
       return `
@@ -11,14 +13,14 @@ const Login = {
 
         <div class="usuario-pass">
           <input type="text" placeholder="Usuario"> <br>
-          <input type="password" placeholder="Contraseña"> <br> <br>
+          <input type="password" placeholder="Contraseña"> <br> 
           <button class="btn-inicio-ses"><a href="">Iniciar Sesión</a></button> <br>
           <p> o iniciar con: </p>
         </div>
 
         <div class="sociales">
-          <button class="btn-google"><a href="">Google</a></button> <br>
-          <button class="btn-fb"><a href="">Facebook</a></button> <br>
+          <button class="btn-google" id="bt-goog"><a href="">Google</a></button> <br>
+          <button class="btn-fb" id="bt-face"><a href="">Facebook</a></button> <br>
           <button class="btn-git"><a href="">Github</a></button> <br>
         </div>
 

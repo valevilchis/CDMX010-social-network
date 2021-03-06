@@ -4,14 +4,10 @@ import Register from './views/pages/Register.js';
 import Error404 from './views/pages/Error404.js';
 import Invitado from './views/pages/Invitado.js';
 
-import navBar from './views/components/navbar.js';
-import Footer from './views/components/Footer.js';
 import {parseURL} from './lib/parseURL.js';
-
-// import {authGoogle, authFacebook} from '../../lib/index.js';
-
-// const btnGoogle = document.querySelector("#login-google");
-// const btnFacebook = document.querySelector("#login-facebook");
+import {create} from './lib/crud/create.js';
+import {read} from './lib/crud/read.js';
+import {getPost} from './lib/getPost.js';
 
 const routes = {
     '/': Home,
@@ -21,15 +17,7 @@ const routes = {
 };
 
 const router = async () => {
-    const header = null || document.getElementById("header_root");
-    const content = null || document.getElementById("page_root");
-    const footer = null || document.getElementById("footer_root");
-
-    // header.innerHTML = await navBar.render();
-    // await navBar.after_render();
-
-    // footer.innerHTML = await Footer.render();
-    // await Footer.after_render();
+const content = null || document.getElementById("page_root");
 
     const { resource, id, verb } = parseURL();
 
@@ -43,14 +31,39 @@ const router = async () => {
         await page.after_render();
     };
 
+    const crud = async () => {
+        const postForm = document.querySelector('#post-form');
+
+        postForm.addEventListener('submit', async (e) => {
+
+            const  description = postForm['post-description'];
+
+            await create(description.value);
+
+            read();
+            postForm.reset();
+            description.focus();
+
+            console.log("Enviando....");
+        });
+    }
+
     window.addEventListener('hashchange', router);
     window.addEventListener('load', router);
+    window.addEventListener('load',crud);
 
-    // //Eventos
-// btnGoogle.addEventListener("click", e => {
-//     authGoogle(e);
-// })
-
-// btnFacebook.addEventListener("click", e => {
-//     authFacebook(e);
-// })
+    window.addEventListener('load', async (e) => {
+        const postContainer = document.querySelector('#post-container');
+        getPost((querySnapshot) => {
+            postContainer.innerHTML = ' ';
+            querySnapshot.forEach(doc => {
+                console.log(doc.data());
+    
+                postContainer.innerHTML += `
+                    <div class="card card-body mt-2 border-primary" >
+                        <p>${doc.data().description}</p>
+                    </div>
+                `;
+            });
+        });
+    });
