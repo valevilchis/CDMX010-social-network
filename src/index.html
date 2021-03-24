@@ -12,10 +12,6 @@
 
   <div class="page_root" id="page_root"></div>
 
-  <!-- <header id="header_root"></header>
-  <main id="page_root"></main>
-  <footer id="footer_root"></footer> -->
-
   <!--Config Firebase-->
   <script src="https://www.gstatic.com/firebasejs/8.2.7/firebase-app.js"></script>
   <!--Auth Applicacion-->
@@ -33,7 +29,7 @@
       appId: "1:1074715007819:web:d9e307c544fa5fd610a6ce"
     };
     firebase.initializeApp(firebaseConfig);
-    console.log(firebase);
+    const auth = firebase.auth();
   </script>
 
   <script type="module" src="./main.js"></script>

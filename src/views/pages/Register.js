@@ -5,18 +5,15 @@ const Register = {
 
         <div class="logo">
             <img src="../../assets/img/huichol.png" alt="" width="310" height="55">
-            <h1>Tévi</h1>
+            <h1><a href="/">Tévi</a></h1>
             <h2>Social Cultura MX</h2>
         </div>
 
-        <div class="formulario-registro">
-          <input type="text" placeholder="Nombre(s)" required><br>
-          <input type="text" placeholder="Apellido" required><br>
-          <input type="email" placeholder="E-mail" required><br>
-          <input type="password" placeholder="Contraseña" required><br>
-          <input type="password" placeholder="Confirmar Contraseña" required> <br>
-          <button class="btn-registro"><a href="/#">Registrarse</a></button>
-        </div>
+        <form class="formulario-registro" id="form-user-pass">
+          <input type="text" id="regist-email" placeholder="E-mail" required><br>
+          <input type="password" id="regist-pass" placeholder="Contraseña" required><br>
+          <button type="submit" class="btn-registro">Registrarse</button>
+        </form>
 
     </div>
       `;

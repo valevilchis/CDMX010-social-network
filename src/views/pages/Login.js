@@ -11,12 +11,12 @@ const Login = {
           <h2>Social Cultura MX</h2>
         </div>
 
-        <div class="usuario-pass">
-          <input type="text" placeholder="Usuario"> <br>
-          <input type="password" placeholder="Contraseña"> <br> 
-          <button class="btn-inicio-ses"><a href="">Iniciar Sesión</a></button> <br>
+        <form class="usuario-pass" id="login-usr-pass">
+          <input type="text" id="login-email" placeholder="Email"> <br>
+          <input type="password" id="login-pass" placeholder="Contraseña"> <br> 
+          <button type="submit" class="btn-inicio-ses">Iniciar Sesión</button> <br>
           <p> o iniciar con: </p>
-        </div>
+        </form>
 
         <div class="sociales">
           <button class="btn-google" id="bt-goog"><a href="">Google</a></button> <br>
