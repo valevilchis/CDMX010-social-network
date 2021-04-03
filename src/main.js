@@ -5,10 +5,11 @@ import Invitado from './views/pages/Invitado.js';
 import Page_User from './views/pages/Page_User.js';
 
 import {parseURL} from './lib/parseURL.js';
-import {create} from './lib/crud/create.js';
-import {read} from './lib/crud/read.js';
-import {getPost} from './lib/getPost.js';
+import {create, getAllPublicaciones, deletePost, getPost, update} from './lib/index.js'
 
+const db = firebase.firestore();
+let estadoEditar = false;
+let id = "";
 
 const routes = {
     '/': Home,
@@ -18,7 +19,7 @@ const routes = {
     '/page_user': Page_User
 };
 
-const router = async () => {
+    const router = async () => {
     const content = null || document.getElementById("page_root");
 
     const { resource, id, verb } = parseURL();
@@ -33,18 +34,19 @@ const router = async () => {
         await page.after_render();
     };
 
-    const crud = async () => {
-        const postForm = document.querySelector('#post-form');
-        if(postForm) {
-            postForm.addEventListener('submit', async (e) => {
-                // const  description = postForm['post-description'];
-                // await create(description.value);
-                read();
-                postForm.reset();
-                // description.focus();
-                console.log("Enviando....");
-            });
-        }
+    const ruteo = async (pathname) => {
+        const content = null || document.getElementById("page_root");
+        content.innerHTML = routes[window.location.pathname];
+
+        window.history.pushState(
+            {},
+            pathname,
+            window.location.origin + pathname
+        );
+
+        const page = routes[pathname];
+        content.innerHTML = await page.render();
+        await page.after_render();
     };
 
     const inscribirse = async () => {
@@ -123,19 +125,27 @@ const router = async () => {
         });
     };
 
-    const ruteo = async (pathname) => {
-        const content = null || document.getElementById("page_root");
-        content.innerHTML = routes[window.location.pathname];
+    const publicaciones = async () => {
+        const formPubli = document.querySelector("#form-publicaciones");
+        if(formPubli) {
+            formPubli.addEventListener("submit", async (e) =>{
+                e.preventDefault();
+                const publicacion = formPubli["publicacion-descripcion"];
 
-        window.history.pushState(
-            {},
-            pathname,
-            window.location.origin + pathname
-        );
+                if(!estadoEditar) {
+                    await create(db, publicacion.value);
+                } else {
+                    await update(id, {
+                        publicacion: publicacion.value })
+                }
 
-        const page = routes[pathname];
-        content.innerHTML = await page.render();
-        await page.after_render();
+                estadoEditar = false;
+                formPubli["btn-publicar"].innerText = "Publicar";
+
+                formPubli.reset();
+                publicacion.focus();
+            });
+        };
     };
 
     window.addEventListener('hashchange', router);
@@ -144,24 +154,47 @@ const router = async () => {
     window.addEventListener('load', inscribirse);
     window.addEventListener("load", acceso);
     window.addEventListener("load", cerrarSesion);
+    window.addEventListener("load", publicaciones);
 
-    window.addEventListener('load',crud);
-    window.addEventListener('load', async (e) => {
-        const postContainer = document.querySelector('#post-container');
-        if(postContainer) {
-            getPost((querySnapshot) => {
-                postContainer.innerHTML = ' ';
-                querySnapshot.forEach(doc => {
-                    console.log(doc.data());
-        
-                    postContainer.innerHTML += `
-                    <div class="card-header">${doc.data().title}</div>
-                    <div class="card-body">
-                        <p class="card-text">${doc.data().description}</p>
+    window.addEventListener("load", async (e) => {
+        const containerPost = document.querySelector("#container-publicaciones");
+
+        if (containerPost) {
+            getAllPublicaciones((querySnapshot) => {
+                containerPost.innerHTML = "";
+                querySnapshot.forEach(element => {
+                    const descripcion = element.data();
+                    descripcion.id = element.id;
+
+                    containerPost.innerHTML += `
+                    <div class="card card-body mt-2 border-primary">
+                        <p>${descripcion.publicacion}</p>
+                        <div>
+                            <button class="btn btn-warning btn-editar" data-id="${descripcion.id}">Editar</button>
+                            <button class="btn btn-danger btn-eliminar" data-id="${descripcion.id}">Eliminar</button>
+                        </div>
                     </div>
                     `;
+
+                    const btnsEliminar = document.querySelectorAll(".btn-eliminar");
+                    btnsEliminar.forEach(btn => {
+                        btn.addEventListener("click", async (e) =>  {
+                            await deletePost(e.target.dataset.id);
+                        });
+                    });
+
+                    const btnsEditar = document.querySelectorAll(".btn-editar");
+                    btnsEditar.forEach(btn => {
+                        const formPubli = document.querySelector("#form-publicaciones");
+                        btn.addEventListener("click", async (e) =>  {
+                            const doc = await getPost(e.target.dataset.id);
+                            estadoEditar = true;
+                            id = doc.id;
+                            formPubli["publicacion-descripcion"].value = doc.data().publicacion;
+                            formPubli["btn-publicar"].innerText = "Actualizar";
+                        });
+                    });
                 });
             });
         }
     });
-    
